@@ -2,18 +2,11 @@
 bool woman = true;
 int age = 28;
 
-if ( woman == true)
+var message = (woman, age) switch
 {
-    if (age < 30)
-    {
-        Console.WriteLine("Kobieta poniżej 30 lat");
-    }
-    else
-    {
-        Console.WriteLine($"{name}, lat {age}");
-    }
-}
-else if ( woman == false && age < 18)
-{
-    Console.WriteLine("Niepełnoletni mężczyzna");
-}
+    (true, < 30) => "Kobieta poniżej 30 lat",
+    (true, _) => ($"{name}, lat {age}"),
+    (false, < 18) => "Niepełnoletni mężczyzna",
+};
+
+Console.WriteLine(message);
