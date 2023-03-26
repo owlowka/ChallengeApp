@@ -1,4 +1,5 @@
-﻿
+﻿using System.Runtime.CompilerServices;
+
 namespace ChallangeApp
 {
     internal class Employee
@@ -34,7 +35,9 @@ namespace ChallangeApp
             }
             else
             {
-                Console.WriteLine($"Pracownik: {Name} Nieprawidłowa ocena. Zakres ocen od 1-10");
+                //Console.WriteLine($"Pracownik: {Name} {Surname} Nieprawidłowa ocena. Zakres ocen od 1-10");
+
+                throw new Exception($"Pracownik: {Name} {Surname} Nieprawidłowa ocena. Zakres ocen od 1-10");
             }
         }
 
