@@ -4,60 +4,69 @@ using System.Xml.Linq;
 
 namespace ChallengeApp.Tests
 {
-    public class Tests
+    public class EmployeeTests
     {
 
         [Test]
-        public void WhenEmployeeCollectTwoSetOfPoints_ThenShouldReturnCorrectSumAsResult()
+        public void WhenEmployeeCollectFiveSetOfPoints_ThenShouldReturnMaxValue()
         {
             //arrange
-            Employee employee1 = new Employee("Roksana", "Talisman", 30);
+            Employee employee1 = new Employee("Roksana", "Talisman");
 
-            employee1.AddScore(5);
-            employee1.AddScore(8);
+            employee1.AddGrade(55);
+            employee1.AddGrade(80);
+            employee1.AddGrade(11);
+            employee1.AddGrade(45);
+            employee1.AddGrade(91);
 
-            //act
-            int result = employee1.Result;
+            Statistics statistics = new Statistics();
+            statistics = employee1.GetStatistics();
 
-            //assert
-            Assert.AreEqual(13, result);
-        }
-
-        [Test]
-        public void WhenEmployeeCollectTwoSetOfPoints_ThenConsoleShouldWriteNameSurnameAndResult()
-        {
-            //arrange
-            Employee employee2 = new Employee("Waldek", "Tajniak", 28);
-            employee2.AddScore(10);
-            employee2.AddScore(8);
-
-            //act
-            int result = employee2.Result;
-            Console.WriteLine($"{employee2.Name} {employee2.Surname} wynik: {result}");
-
-            //assert
-
-            Assert.Pass("Waldek Tajniak wynik: 18");
-        }
-
-        [Test]
-        public void WhenEmployeeCollectTwoSetOfPointsWithZeroValue_ThenConsoleShouldWriteSpecialSentence()
-        {
-            //arrange
-            Employee employee2 = new Employee("Waldek", "Tajniak", 28);
 
             //act//assert
-            Assert.Throws<Exception>(() => employee2.AddScore(0));
+            Assert.AreEqual(91, statistics.Max);
+
         }
 
         [Test]
-        public void WhenEmployeeCollectTwoSetOfPointsWithNegativeValue_ThenConsoleShouldWriteSpecialSentence()
+        public void WhenEmployeeCollectFiveSetOfPoints_ThenShouldReturnMinValue()
         {
             //arrange
-            Employee employee2 = new Employee("Waldek", "Tajniak", 28);
+            Employee employee1 = new Employee("Roksana", "Talisman");
+
+            employee1.AddGrade(55);
+            employee1.AddGrade(80);
+            employee1.AddGrade(11);
+            employee1.AddGrade(45);
+            employee1.AddGrade(91);
+
+            Statistics statistics = new Statistics();
+            statistics = employee1.GetStatistics();
+
 
             //act//assert
-            Assert.Throws<Exception>(() => employee2.AddScore(-1));
+            Assert.AreEqual(11, statistics.Min);
+
         }
+        [Test]
+        public void WhenEmployeeCollectFiveSetOfPoints_ThenShouldReturnAverageValue()
+        {
+            //arrange
+            Employee employee1 = new Employee("Roksana", "Talisman");
+
+            employee1.AddGrade(55);
+            employee1.AddGrade(80);
+            employee1.AddGrade(11);
+            employee1.AddGrade(45);
+            employee1.AddGrade(91);
+
+            Statistics statistics = new Statistics();
+            statistics = employee1.GetStatistics();
+
+            //act//assert
+            Assert.AreEqual(56,4 , statistics.Average);
+
+        }
+
     }
 }

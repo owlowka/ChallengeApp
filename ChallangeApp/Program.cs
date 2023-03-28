@@ -4,59 +4,29 @@ using ChallangeApp;
 
 [assembly: InternalsVisibleTo("ChallengeApp.Tests")]
 
-User u1 = new User("Roksana", "Talisman1");
-User u2 = new User("Waldek", "Tajniak4");
-User u3 = new User("Mietek", "Atlas7");
+Employee employee1 = new Employee("Roksana", "Talisman");
+Employee employee2 = new Employee("Waldek", "Tajniak");
+Employee employee3 = new Employee("Mietek", "Atlas");
 
-u1.AddScore(5);
-u1.AddScore(8);
-u1.AddScore(1);
+employee1.AddGrade(55);
+employee1.AddGrade(80);
+employee1.AddGrade(11);
+employee1.AddGrade(45);
+employee1.AddGrade(91);
 
-u2.AddScore(1);
-u2.AddScore(3);
-u2.AddScore(6);
+employee2.AddGrade(11);
+employee2.AddGrade(31);
+employee2.AddGrade(61);
+employee2.AddGrade(91);
+employee2.AddGrade(81);
 
-u3.AddScore(10);
-u3.AddScore(8);
-u3.AddScore(9);
+employee3.AddGrade(10);
+employee3.AddGrade(82);
+employee3.AddGrade(93);
+employee3.AddGrade(84);
+employee3.AddGrade(95);
 
-int resultU1 = u1.Result;
-int resultU2 = u2.Result;
-int resultU3 = u3.Result;
-
-List<User> users = new List<User>()
-{
-    u1,
-    u2,
-    u3
-};
-
-
-Employee employee1 = new Employee("Roksana", "Talisman", 30);
-Employee employee2 = new Employee("Waldek", "Tajniak", 28);
-Employee employee3 = new Employee("Mietek", "Atlas", 26);
-
-employee1.AddScore(5);
-employee1.AddScore(8);
-employee1.AddScore(1);
-employee1.AddScore(4);
-employee1.AddScore(8);
-
-employee2.AddScore(1);
-employee2.AddScore(3);
-employee2.AddScore(6);
-employee2.AddScore(9);
-employee2.AddScore(8);
-
-employee3.AddScore(10);
-employee3.AddScore(8);
-employee3.AddScore(9);
-employee3.AddScore(8);
-employee3.AddScore(9);
-
-int resultE1 = employee1.Result;
-int resultE2 = employee2.Result;
-int resultE3 = employee3.Result;
+Statistics statistics = employee1.GetStatistics();
 
 List<Employee> employees = new List<Employee>()
 {
@@ -65,12 +35,7 @@ List<Employee> employees = new List<Employee>()
     employee3
 };
 
-Employee? bestEmployee = employees.MaxBy(employee => employee.Result);
-
-Console.WriteLine($"Najlepszy pracownik: " +
-    $"{bestEmployee.Name} " +
-    $"{bestEmployee.Surname} " +
-    $"{bestEmployee.Surname} " +
-    $"{bestEmployee.Age} " +
-    $"Wynik: {bestEmployee.Result}");
+Console.WriteLine($"Average: {statistics.Average:N2}");
+Console.WriteLine($"Max: {statistics.Max}");
+Console.WriteLine($"Min: {statistics.Min}");
 
