@@ -8,10 +8,10 @@ Employee employee1 = new Employee("Roksana", "Talisman");
 Employee employee2 = new Employee("Waldek", "Tajniak");
 Employee employee3 = new Employee("Mietek", "Atlas");
 
-employee1.AddGrade(55);
-employee1.AddGrade(80);
-employee1.AddGrade(11);
-employee1.AddGrade(45);
+employee1.AddGrade("5");
+employee1.AddGrade(2000);
+employee1.AddGrade(80d);
+employee1.AddGrade(45f);
 employee1.AddGrade(91);
 
 employee2.AddGrade(11);
