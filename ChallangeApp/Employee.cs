@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace ChallangeApp
@@ -69,15 +70,53 @@ namespace ChallangeApp
 
         }
 
-        public Statistics GetStatistics()
+        public Statistics GetStatisticsWithDoWhile()
         {
-            var statistics = new Statistics();
-            statistics.Average = 0;
-            statistics.Max = float.MinValue;
-            statistics.Min = float.MaxValue;
+            Statistics statistics = new Statistics();
+            int index = 0;
+
+            do
+            {
+                statistics.Max = Math.Max(statistics.Max, this.grades[index]);
+                statistics.Min = Math.Min(statistics.Min, this.grades[index]);
+                statistics.Average += this.grades[index];
+                index++;
+            } while (index < this.grades.Count);
+
+            statistics.Average /= this.grades.Count;
+
+            return statistics;
+        }
+
+        public Statistics GetStatisticsWithWhile()
+        {
+            Statistics statistics = new Statistics();
+
+            int index = 0;
+
+            while (index < this.grades.Count)
+            {
+                statistics.Max = Math.Max(statistics.Max, this.grades[index]);
+                statistics.Min = Math.Min(statistics.Min, this.grades[index]);
+                statistics.Average += this.grades[index];
+                index++;
+            }
+
+            statistics.Average /= this.grades.Count;
+
+            return statistics;
+        }
+
+        public Statistics GetStatisticsWithForeach()
+        {
+            Statistics statistics = new Statistics();
 
             foreach (var grade in this.grades)
             {
+                if (grade < 0)
+                {
+                    continue;
+                }
                 statistics.Max = Math.Max(statistics.Max, grade);
                 statistics.Min = Math.Min(statistics.Min, grade);
                 statistics.Average += grade;
@@ -88,5 +127,21 @@ namespace ChallangeApp
             return statistics;
         }
 
+        public Statistics GetStatisticsWithFor()
+        {
+            Statistics statistics = new Statistics();
+
+            for (int index = 0; index < this.grades.Count; index++)
+            {
+                statistics.Max = Math.Max(statistics.Max, this.grades[index]);
+                statistics.Min = Math.Min(statistics.Min, this.grades[index]);
+                statistics.Average += this.grades[index];
+            }
+            statistics.Average /= this.grades.Count;
+
+            return statistics;
+        }
+
     }
+
 }
