@@ -6,6 +6,8 @@ namespace ChallangeApp
 {
     internal class Employee
     {
+        private readonly char sex = 'M';
+
         private List<float> grades = new List<float>();
 
         public string Name { get; private set; }
@@ -20,6 +22,7 @@ namespace ChallangeApp
         {
             this.Name = name;
             this.Surname = surname;
+            this.sex = 'K';
         }
 
         public void AddGrade(float grade)
@@ -40,10 +43,15 @@ namespace ChallangeApp
             {
                 this.AddGrade(result);
             }
-            else
+            else if (grade.Length > 0)
             {
                 AddGrade(grade.First());
             }
+            else
+            {
+                throw new ArgumentOutOfRangeException("Nieprawidłowa ocena");
+            }
+        
         }
         public void AddGrade(char grade)
         {

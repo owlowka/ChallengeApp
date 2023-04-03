@@ -10,6 +10,7 @@ Console.WriteLine();
 
 var employee = new Employee();
 
+
 while (true)
 {
     Console.WriteLine("Podaj Ocenę pracownika: ");
@@ -19,7 +20,14 @@ while (true)
     {
         break;
     }
-    employee.AddGrade(input);
+    try
+    {
+        employee.AddGrade(input);
+    }
+    catch(ArgumentOutOfRangeException exc)
+    {
+        Console.WriteLine(exc.Message);
+    }
 }
 
 
