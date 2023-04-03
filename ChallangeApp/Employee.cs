@@ -11,32 +11,66 @@ namespace ChallangeApp
         public string Name { get; private set; }
         public string Surname { get; private set; }
 
+        public Employee()
+        {
+
+        }
+
         public Employee(string name, string surname)
         {
             this.Name = name;
             this.Surname = surname;
         }
+
         public void AddGrade(float grade)
         {
-            if (grade >= 0 && grade <= 100)
+            if (grade >= 0.0 && grade <= 100.0)
             {
                 this.grades.Add(grade);
             }
             else
             {
-                Console.WriteLine("Invalid grade value");
-                //throw new Exception($"Pracownik: {Name} {Surname} Nieprawidłowa ocena. Zakres ocen od 0-100");
+                throw new ArgumentOutOfRangeException("Nieprawidłowa ocena. Wprowadź wartość od 0 do 100");
             }
         }
+
         public void AddGrade(string grade)
         {
-            if (float.TryParse(grade, out float result)) 
+            if (float.TryParse(grade, out float result))
             {
                 this.AddGrade(result);
             }
             else
             {
-                Console.WriteLine("String is not float");
+                AddGrade(grade.First());
+            }
+        }
+        public void AddGrade(char grade)
+        {
+            switch (grade)
+            {
+                case 'A':
+                case 'a':
+                    this.grades.Add(100);
+                    break;
+                case 'B':
+                case 'b':
+                    this.grades.Add(80);
+                    break;
+                case 'C':
+                case 'c':
+                    this.grades.Add(60);
+                    break;
+                case 'D':
+                case 'd':
+                    this.grades.Add(40);
+                    break;
+                case 'E':
+                case 'e':
+                    this.grades.Add(20);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("Nieprawidłowa ocena. Wprowadź wartość od A-E");
             }
         }
 
@@ -45,21 +79,20 @@ namespace ChallangeApp
             float valueInIntToFloat = (float)grade;
 
             this.AddGrade(valueInIntToFloat);
-
         }
+
         public void AddGrade(double grade)
         {
             float valueInDoubleToFloat = (float)grade;
 
             this.AddGrade(valueInDoubleToFloat);
-
         }
+
         public void AddGrade(decimal grade)
         {
             float valueInDecimalToFloat = (float)grade;
 
             this.AddGrade(valueInDecimalToFloat);
-
         }
 
         public void AddGrade(long grade)
@@ -67,81 +100,45 @@ namespace ChallangeApp
             float valueInLongToFloat = (float)grade;
 
             AddGrade(valueInLongToFloat);
-
         }
 
-        public Statistics GetStatisticsWithDoWhile()
-        {
-            Statistics statistics = new Statistics();
-            int index = 0;
-
-            do
-            {
-                statistics.Max = Math.Max(statistics.Max, this.grades[index]);
-                statistics.Min = Math.Min(statistics.Min, this.grades[index]);
-                statistics.Average += this.grades[index];
-                index++;
-            } while (index < this.grades.Count);
-
-            statistics.Average /= this.grades.Count;
-
-            return statistics;
-        }
-
-        public Statistics GetStatisticsWithWhile()
-        {
-            Statistics statistics = new Statistics();
-
-            int index = 0;
-
-            while (index < this.grades.Count)
-            {
-                statistics.Max = Math.Max(statistics.Max, this.grades[index]);
-                statistics.Min = Math.Min(statistics.Min, this.grades[index]);
-                statistics.Average += this.grades[index];
-                index++;
-            }
-
-            statistics.Average /= this.grades.Count;
-
-            return statistics;
-        }
-
-        public Statistics GetStatisticsWithForeach()
+        public Statistics GetStatistics()
         {
             Statistics statistics = new Statistics();
 
             foreach (var grade in this.grades)
             {
-                if (grade < 0)
+                if (grade >= 0)
                 {
-                    continue;
+                    statistics.Max = Math.Max(statistics.Max, grade);
+                    statistics.Min = Math.Min(statistics.Min, grade);
+                    statistics.Average += grade;
                 }
-                statistics.Max = Math.Max(statistics.Max, grade);
-                statistics.Min = Math.Min(statistics.Min, grade);
-                statistics.Average += grade;
+
             }
 
             statistics.Average /= this.grades.Count;
 
-            return statistics;
-        }
-
-        public Statistics GetStatisticsWithFor()
-        {
-            Statistics statistics = new Statistics();
-
-            for (int index = 0; index < this.grades.Count; index++)
+            switch (statistics.Average)
             {
-                statistics.Max = Math.Max(statistics.Max, this.grades[index]);
-                statistics.Min = Math.Min(statistics.Min, this.grades[index]);
-                statistics.Average += this.grades[index];
+                case var average when average >= 80:
+                    statistics.AverageLetter = 'A';
+                    break;
+                case var average when average >= 80:
+                    statistics.AverageLetter = 'B';
+                    break;
+                case var average when average >= 40:
+                    statistics.AverageLetter = 'C';
+                    break;
+                case var average when average >= 20:
+                    statistics.AverageLetter = 'D';
+                    break;
+                default:
+                    statistics.AverageLetter = 'E';
+                    break;
             }
-            statistics.Average /= this.grades.Count;
 
             return statistics;
         }
-
     }
-
 }

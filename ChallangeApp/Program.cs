@@ -4,43 +4,34 @@ using ChallangeApp;
 
 [assembly: InternalsVisibleTo("ChallengeApp.Tests")]
 
-Employee employee1 = new Employee("Roksana", "Talisman");
-Employee employee2 = new Employee("Waldek", "Tajniak");
-Employee employee3 = new Employee("Mietek", "Atlas");
+Console.WriteLine("Witamy w programie XYZ do oceny pracowników");
+Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++");
+Console.WriteLine();
 
-employee1.AddGrade("5");
-employee1.AddGrade(2000);
-employee1.AddGrade(80d);
-employee1.AddGrade(45f);
-employee1.AddGrade("Olaf");
+var employee = new Employee();
 
-employee2.AddGrade(11);
-employee2.AddGrade(31);
-employee2.AddGrade(61);
-employee2.AddGrade(91);
-employee2.AddGrade(81);
+while (true)
+{
+    Console.WriteLine("Podaj Ocenę pracownika: ");
+    var input = Console.ReadLine();
 
-employee3.AddGrade(10);
-employee3.AddGrade(82);
-employee3.AddGrade(93);
-employee3.AddGrade(84);
-employee3.AddGrade(95);
+    if (input == "q")
+    {
+        break;
+    }
+    employee.AddGrade(input);
+}
 
-//Statistics statistics = employee1.GetStatistics();
-Statistics statistics1 = employee1.GetStatisticsWithForeach();
-Statistics statistics2 = employee1.GetStatisticsWithFor();
-Statistics statistics3 = employee1.GetStatisticsWithDoWhile();
-Statistics statistics4 = employee1.GetStatisticsWithWhile();
+
+Statistics statistics = employee.GetStatistics();
+Console.WriteLine($"AVG: {statistics.AverageLetter}");
+Console.WriteLine($"Min: {statistics.Min}");
+Console.WriteLine($"Max: {statistics.Max}");
 
 
 List<Employee> employees = new List<Employee>()
 {
-    employee1,
-    employee2,
-    employee3
+    //employee1,
+    //employee2,
+   // employee3
 };
-
-Console.WriteLine($"Average: {statistics3.Average:N2}");
-Console.WriteLine($"Max: {statistics3.Max}");
-Console.WriteLine($"Min: {statistics3.Min}");
-
