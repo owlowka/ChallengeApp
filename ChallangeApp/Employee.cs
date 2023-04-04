@@ -4,25 +4,24 @@ using System.Runtime.CompilerServices;
 
 namespace ChallangeApp
 {
-    internal class Employee
+    internal class Employee : Person
     {
-        private readonly char sex = 'M';
-
         private List<float> grades = new List<float>();
-
-        public string Name { get; private set; }
-        public string Surname { get; private set; }
 
         public Employee()
         {
 
         }
-
         public Employee(string name, string surname)
+            : base(name, surname)
         {
-            this.Name = name;
-            this.Surname = surname;
-            this.sex = 'K';
+            var i = this.counter;
+        }
+
+        public Employee(string name, string surname, string sex)
+            : base(name, surname, sex)
+        {
+            var i = this.counter;
         }
 
         public void AddGrade(float grade)
@@ -51,8 +50,8 @@ namespace ChallangeApp
             {
                 throw new ArgumentOutOfRangeException("Nieprawidłowa ocena");
             }
-        
         }
+
         public void AddGrade(char grade)
         {
             switch (grade)
