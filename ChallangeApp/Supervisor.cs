@@ -1,28 +1,30 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ChallangeApp
 {
-    internal class Employee : IEmployee
+    public class Supervisor : IEmployee
     {
         private List<float> grades = new List<float>();
 
-        public Employee()
+        public Supervisor()
         {
 
         }
-        public Employee(string name, string surname)
+        public Supervisor(string name, string surname)
 
         {
             this.Name = name;
             this.Surname = surname;
         }
 
-        public Employee(string name, string surname, string sex)
+        public Supervisor(string name, string surname, string sex)
         {
-            Name = name;
-            Surname = surname;
+            this.Name = name;
+            this.Surname = surname;
             Sex = sex;
         }
 
@@ -44,47 +46,32 @@ namespace ChallangeApp
 
         public void AddGrade(string grade)
         {
-            if (float.TryParse(grade, out float result))
+            int value = grade switch
             {
-                this.AddGrade(result);
-            }
-            else if (grade.Length > 0)
-            {
-                AddGrade(grade.First());
-            }
-            else
-            {
-                throw new ArgumentOutOfRangeException("Nieprawidłowa ocena");
-            }
+                "6" => 100,
+                "5" => 80,
+                "4" => 60,
+                "-3" or "3-" => 35,
+                "+2" or "3+" => 25,
+                "2" => 20,
+                "1" => 0,
+                _ => throw new ArgumentOutOfRangeException("Nieprawidłowa ocena. Wprowadź wartość 1-6")
+            };
+
+            grades.Add(value);
         }
 
         public void AddGrade(char grade)
         {
-            switch (grade)
+            int value = grade switch
             {
-                case 'A':
-                case 'a':
-                    this.grades.Add(100);
-                    break;
-                case 'B':
-                case 'b':
-                    this.grades.Add(80);
-                    break;
-                case 'C':
-                case 'c':
-                    this.grades.Add(60);
-                    break;
-                case 'D':
-                case 'd':
-                    this.grades.Add(40);
-                    break;
-                case 'E':
-                case 'e':
-                    this.grades.Add(20);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("Nieprawidłowa ocena. Wprowadź wartość od A-E");
-            }
+                'A' or 'a' => 100,
+                'B' or 'b' => 80,
+                'C' or 'c' => 60,
+                'D' or 'd' => 40,
+                'E' or 'e' => 20,
+                _ => throw new ArgumentOutOfRangeException("Nieprawidłowa ocena. Wprowadź wartość od A-E")
+            };
         }
 
         public void AddGrade(int grade)
@@ -153,5 +140,6 @@ namespace ChallangeApp
 
             return statistics;
         }
+
     }
 }
