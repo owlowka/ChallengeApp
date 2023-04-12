@@ -1,36 +1,17 @@
-﻿using System;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-
+﻿
 namespace ChallangeApp
 {
-    internal class Employee : IEmployee
+    public class EmployeeInMemory : EmployeeBase
     {
         private List<float> grades = new List<float>();
 
-        public Employee()
+        public EmployeeInMemory(string name, string surname)
+            : base(name, surname)
         {
 
         }
-        public Employee(string name, string surname)
 
-        {
-            this.Name = name;
-            this.Surname = surname;
-        }
-
-        public Employee(string name, string surname, string sex)
-        {
-            Name = name;
-            Surname = surname;
-            Sex = sex;
-        }
-
-        public string Name { get; private set; }
-        public string Surname { get; private set; }
-        public string Sex { get; private set; }
-
-        public void AddGrade(float grade)
+        public override void AddGrade(float grade)
         {
             if (grade >= 0.0 && grade <= 100.0)
             {
@@ -42,23 +23,21 @@ namespace ChallangeApp
             }
         }
 
-        public void AddGrade(string grade)
+        public override void AddGrade(double grade)
         {
-            if (float.TryParse(grade, out float result))
-            {
-                this.AddGrade(result);
-            }
-            else if (grade.Length > 0)
-            {
-                AddGrade(grade.First());
-            }
-            else
-            {
-                throw new ArgumentOutOfRangeException("Nieprawidłowa ocena");
-            }
+            float valueInDoubleToFloat = (float)grade;
+
+            this.AddGrade(valueInDoubleToFloat);
         }
 
-        public void AddGrade(char grade)
+        public override void AddGrade(int grade)
+        {
+            float valueInIntToFloat = (float)grade;
+
+            this.AddGrade(valueInIntToFloat);
+        }
+
+        public override void AddGrade(char grade)
         {
             switch (grade)
             {
@@ -87,35 +66,23 @@ namespace ChallangeApp
             }
         }
 
-        public void AddGrade(int grade)
+        public override void AddGrade(string grade)
         {
-            float valueInIntToFloat = (float)grade;
-
-            this.AddGrade(valueInIntToFloat);
+            if (float.TryParse(grade, out float result))
+            {
+                this.AddGrade(result);
+            }
+            else if (grade.Length > 0)
+            {
+                AddGrade(grade.First());
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("Nieprawidłowa ocena");
+            }
         }
 
-        public void AddGrade(double grade)
-        {
-            float valueInDoubleToFloat = (float)grade;
-
-            this.AddGrade(valueInDoubleToFloat);
-        }
-
-        public void AddGrade(decimal grade)
-        {
-            float valueInDecimalToFloat = (float)grade;
-
-            this.AddGrade(valueInDecimalToFloat);
-        }
-
-        public void AddGrade(long grade)
-        {
-            float valueInLongToFloat = (float)grade;
-
-            AddGrade(valueInLongToFloat);
-        }
-
-        public Statistics GetStatistics()
+        public override Statistics GetStatistics()
         {
             Statistics statistics = new Statistics();
 
