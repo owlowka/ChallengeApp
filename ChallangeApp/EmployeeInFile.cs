@@ -9,6 +9,9 @@ namespace ChallangeApp
     internal class EmployeeInFile : EmployeeBase
     {
         private const string fileName = "grades.txt";
+
+        public override event GradeAddedDelegate GradeAdded;
+
         public EmployeeInFile(string name, string surname) 
             : base(name, surname)
         {
@@ -17,17 +20,25 @@ namespace ChallangeApp
 
         public override void AddGrade(float grade)
         {
-            using (var writer = File.AppendText(fileName))
-            {
+
                 if (grade >= 0.0 && grade <= 100.0)
                 {
-                    writer.WriteLine(grade);
+                    using (var writer = File.AppendText(fileName))
+                    {
+                        writer.WriteLine(grade);
+
+                    }
+
+                    if (GradeAdded != null)
+                    {
+                        GradeAdded(this, new EventArgs());
+                    }
                 }
                 else
                 {
                     throw new ArgumentOutOfRangeException("Nieprawidłowa ocena. Wprowadź wartość od 0 do 100");
                 }
-            }
+
         }
 
         public override void AddGrade(double grade)
