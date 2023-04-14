@@ -9,15 +9,13 @@ Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++");
 Console.WriteLine();
 
 var employee = new EmployeeInFile("Roksana", "Talisaman");
-employee.AddGrade(0.5f);
-employee.AddGrade(25f);
-employee.AddGrade(50f);
-employee.AddGrade(100f);
-employee.AddGrade(0.9f);
+employee.GradeAdded += EmployeeGradeAdded;
 
+void EmployeeGradeAdded(object sender, EventArgs args)
+{
+    Console.WriteLine("Dodano nową ocenę");
+}
 
-
-/*
 while (true)
 {
     Console.WriteLine("Podaj Ocenę pracownika: ");
@@ -37,12 +35,11 @@ while (true)
     }
 }
 
-
 Statistics statistics = employee.GetStatistics();
-Console.WriteLine($"AVG: {statistics.AverageLetter}");
+Console.WriteLine($"Average: {statistics.AverageLetter}");
 Console.WriteLine($"Min: {statistics.Min}");
 Console.WriteLine($"Max: {statistics.Max}");
-*/
+
 
 /*
 List<Employee> employees = new List<Employee>()
@@ -52,3 +49,4 @@ List<Employee> employees = new List<Employee>()
    // employee3
 };
 */
+

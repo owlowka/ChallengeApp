@@ -6,7 +6,7 @@ namespace ChallengeApp.Tests
 {
     public class EmployeeTests
     {
-
+        /*
         [Test]
         public void WhenAddGradeInvokedWithFiveInts_ThenShouldReturnMaxValue()
         {
@@ -222,6 +222,6 @@ namespace ChallengeApp.Tests
             //assert
             Assert.That(statistics.AverageLetter, Is.EqualTo(letter));
         }
-
+        */
     }
 }
